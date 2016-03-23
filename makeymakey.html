@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+    <title>Processing Template</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.13/addons/p5.dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.13/p5.js"></script>
+    <script>
+        var circlex = 650 / 2;
+        var circley = 650 / 2;
+        var circle;
+        var started = false;
+
+        function setup() {
+            createCanvas(650, 650);
+            circle = new Circle();
+        }
+
+        function draw() {
+            if (started) {
+                fill(circle.x / 2 - circle.x + 200, 0, circle.x / 2)
+                rect(0, 0, 650, 650)
+                    //background(circlex/3,0,0);
+                    /*  if (circle.x > 420) {
+                          background(0, 180, 255);
+                      }
+                      if (circle.x < 220) {
+                          background(255, 0, 100);
+                      }
+                      if (circle.x >= 650) {
+                          background(0, 0, 255);
+                      }
+                      if (circle.x < 0) {
+                          background(255, 0, 0);*/
+                    //}
+                drawRope();
+                circle.display();
+                circle.move();
+
+                if (circle.x < 0 - 40) {
+                    textSize(24)
+                    fill(255)
+                    strokeWeight(0);
+                    text("Player 1 Won The Game", height / 2 - 140, width / 2 - 150)
+                    noLoop();
+                }
+                if (circle.x > 650 + 40) {
+                    textSize(24)
+                    fill(255)
+                    strokeWeight(0);
+                    text("Player 2 Won The Game", height / 2 - 140, width / 2 - 150)
+                    noLoop();
+                }
+            }
+            else {
+                background(0);
+                fill(255)
+                strokeWeight(0);
+                textSize(32)
+                text("Tug-o-War", width / 4 + 95, height / 4);
+                text("Press SPACE to Play ", width / 2 - 185, height / 2 - 100);
+                textSize(20);
+                fill(255, 0, 0);
+                text("Player 1 Use The Left Arrow", width / 2 - 245, height / 2 + 30);
+                fill(0, 0, 255);
+                text("Player 2 Use The Right Arrow", width / 2 - 75, height / 2 + 100);
+            }
+
+        }
+
+        function Circle() {
+            this.x = circlex;
+            this.y = circley;
+            this.move = function() {
+                if (keyIsDown(LEFT_ARROW)) {
+                    this.x -= 3.5;
+                }
+                if (keyIsDown(RIGHT_ARROW)) {
+                    this.x += 3.5;
+                }
+            }
+            this.display = function() {
+                fill(255);
+                ellipse(this.x, this.y, 40, 40);
+
+            }
+        }
+
+        function drawRope() {
+            stroke(255);
+            strokeWeight(20);
+            line(0, height / 2, 650, height / 2);
+        }
+
+        function keyPressed() {
+            if (key == " ") {
+                started = true;
+            }
+        }
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html> 
